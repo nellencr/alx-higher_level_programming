@@ -1,13 +1,13 @@
 #!/usr/bin/python3
-# 6-print_matrix_integer.py
-
-
-def print_matrix_integer(matrix=[[]]):
-    """Print matrix containing int"""
-    for x in range(len(matrix)):
-        for y in range(len(matrix[x])):
-                print("{:d}".format(matrix[x][y]), end="")
-                if y != (len(matrix[x]) - 1):
-                    print(" ", end="")
-
-        print("")
+def add_tuple(tuple_a=(), tuple_b=()):
+    """Adds elements of 2 tuples"""
+    if len(tuple_a) < 1:
+        tuple_a = (0, 0)
+    elif len(tuple_a) < 2:
+        tuple_a = (tuple_a[0], 0)
+    if len(tuple_b) < 1:
+        tuple_b = (0, 0)
+    elif len(tuple_b) < 2:
+        tuple_b = (tuple_b[0], 0)
+    res = (tuple_a[0] + tuple_b[0], tuple_a[1] + tuple_b[1])
+    return res
