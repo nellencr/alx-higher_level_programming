@@ -1,83 +1,87 @@
 #!/usr/bin/python3
-"""
-No module imported
-"""
+""" a class to define a size of square """
 
 
-class Square:
-    """
-    Private instance attribute size
-    public instance method
+class Square():
+    """ a class to define and calculate area of the square
+    Args:
+        square1 (class): a class which define a square with size
     """
 
     def __init__(self, size=0, position=(0, 0)):
-        """private instance attribute
-        parameters
-        -------------------------
-        size : integer else TypeError
-        if size less than 0, raise value error
+        """initiationing square
+        Args:
+            size (int): the size of the square passed. Defaults to 0.
+        Raises:
+            TypeError: size must be an integer
+            ValueError: size must be >= 0
         """
-        self.size = size
-        self.position = position
+        self.__size = size
+        self.__position = position
+        error = 'position must be a tuple of 2 positive integers'
+
+        try:
+            if position[1]:
+                pass
+        except IndexError:
+            raise TypeError(error)
+
+        for pos in self.__position:
+            if type(pos) != int:
+                raise TypeError(error)
+            elif pos < 0:
+                raise TypeError(error)
+
+        if type(self.__size) != int:
+            raise TypeError('size must be an integer')
+        elif self.__size < 0:
+            raise ValueError('size must be >= 0')
 
     @property
     def size(self):
-        """
-        to retrieve private instance attribute size
+        """getter for size
+        Returns:
+            integer: sends the value of private size
         """
         return self.__size
 
-    @property
-    def position(self):
-        """to retrieve private instance attribute position"""
-        return self.__position
-
     @size.setter
     def size(self, value):
+        """Setter for size
+        Args:
+            value (int): a new size value
+        Raises:
+            TypeError: if not integer
+            ValueError: if < 0
         """
-        to set private instance attribute
-        """
-        self.__size = value
-        try:
-            assert type(value) == int
-        except BaseException:
-            raise TypeError("size must be an integer")
-        if value < 0:
-            raise ValueError("size must be >= 0")
 
-    @position.setter
-    def position(self, value):
-        """to set position, a tuple of two integers"""
-        self.__position = value
-        try:
-            assert type(value) == tuple
-        except BaseException:
-            raise TypeError("position must be a tuple of 2 positive integers")
-        try:
-            assert type(value[0]) == int or type(value[1]) == int
-        except BaseException:
-            raise TypeError("position must be a tuple of 2 positive integers")
-        if value[0] < 0 or value[1] < 0:
-            raise TypeError("position must be a tuple of 2 positive integers")
+        if type(value) != int:
+            raise TypeError('size must be an integer')
+        elif value < 0:
+            raise ValueError('size must be >= 0')
+
+        self.__size = value
 
     def area(self):
+        """ finding the area of the square
+        Returns:
+            int: the are of the square
         """
-        public instance method
-        returns the current square area
-        """
-        return self.__size ** 2
+        return self.__size**2
 
     def my_print(self):
-        """
-        print squre using #
-        """
-        if self.size == 0:
+        """printing the square"""
+        if self.__size == 0:
             print()
-        for i in range(self.position[1]):
-            print("\n")
-        for i in range(self.size):
-            for j in range(self.position[0]):
-                print(" ", end="")
-            for j in range(self.size):
-                print("#", end="")
+            return
+        print('\n'*self.__position[1], end="")
+        for i in range(self.__size):
+            for k in range(self.__position[0]):
+                print(' ', end="")
+            for j in range(self.__size):
+                print('#', end="")
             print()
+
+    @property
+    def position(self):
+        return self.__position
