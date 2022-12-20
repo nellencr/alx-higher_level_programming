@@ -1,83 +1,110 @@
 #!/usr/bin/python3
-"""
-No module imported
-"""
+""" a class to define a size of square """
 
 
-class Square:
+class Square():
+    """ a class to define and calculate area of the square
+    Args:
+        square1 (class): a class which define a square with size
     """
-    Private instance attribute size
-    public instance method
-    """
+
     def __init__(self, size=0):
-        """private instance attribute
-        parameters
-        -------------------------
-        size : integer else TypeError
-        if size less than 0, raise value error
+        """initiationing square
+        Args:
+            size (int): the size of the square passed. Defaults to 0.
+        Raises:
+            TypeError: size must be an integer
+            ValueError: size must be >= 0
         """
         self.__size = size
+        if type(self.__size) != int and type(self.__size) != float:
+            raise TypeError('size must be a number')
+        elif self.__size < 0:
+            raise ValueError('size must be >= 0')
+        Square.Area = self.__size**2
 
     @property
     def size(self):
-        """
-        to retrieve private instance attribute
+        """getter for size
+        Returns:
+            integer: sends the value of private size
         """
         return self.__size
 
     @size.setter
     def size(self, value):
+        """Setter for size
+        Args:
+            value (int): a new size value
+        Raises:
+            TypeError: if not integer
+            ValueError: if < 0
         """
-        to set private instance attribute
-        """
+
+        if type(self.__size) != int and type(self.__size) != float:
+            raise TypeError('size must be a number')
+        elif value < 0:
+            raise ValueError('size must be >= 0')
+
         self.__size = value
-        try:
-            assert type(value) == int
-        except:
-            raise TypeError("size must be an integer")
-        if value < 0:
-            raise ValueError("size must be >= 0")
 
     def area(self):
+        """ finding the area of the square
+        Returns:
+            int: the are of the square
         """
-        public instance method
-        returns the current square area
-        """
-        area = self.__size ** 2
-        return area
+        return self.__size**2
 
     def __lt__(self, other):
-        """check for less than"""
-        if self.__size ** 2 < other.__size ** 2:
-            return True
-        return False
+        """less than comparison function
+        Args:
+            other (instance): another square instance
+        Returns:
+            boolean: comparison result
+        """
+        return self.__size < other.__size
 
     def __le__(self, other):
-        """check for <="""
-        if self.__size ** 2 <= other.__size ** 2:
-            return True
-        return False
+        """less than or equal to comparison
+        Args:
+            other (instance): another square instance
+        Returns:
+            boolean: comparison result
+        """
+        return self.__size <= other.__size
 
     def __eq__(self, other):
-        """check for =="""
-        if self.__size ** 2 == other.__size ** 2:
-            return True
-        return False
+        """ equal to comparison
+        Args:
+            other (instance): another square instance
+        Returns:
+            boolean: comparison result
+        """
+        return self.__size == other.__size
 
     def __ne__(self, other):
-        """check for !="""
-        if self.__size ** 2 != other.__size ** 2:
-            return True
-        return False
+        """not equal to comparison
+        Args:
+            other (instance): another square instance
+        Returns:
+            boolean: comparison result
+        """
+        return self.__size != other.__size
 
     def __gt__(self, other):
-        """check for >"""
-        if self.__size ** 2 > other.__size ** 2:
-            return True
-        return False
+        """greater than comparison
+        Args:
+            other (instance): another square instance
+        Returns:
+            boolean: comparison result
+        """
+        return self.__size > other.__size
 
     def __ge__(self, other):
-        """check for >="""
-        if self.__size ** 2 >= other.__size ** 2:
-            return True
-        return False
+        """greater than or equal to comparison
+        Args:
+            other (instance): another square instance
+        Returns:
+            boolean: comparison result
+        """
+        return self.__size >= other.__size
