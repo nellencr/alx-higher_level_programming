@@ -8,7 +8,7 @@ class Square():
         square1 (class): a class which define a square with size
     """
 
-    def __init__(self, size=0):
+    def __init__(self, size=0, position=(0, 0)):
         """initiationing square
         Args:
             size (int): the size of the square passed. Defaults to 0.
@@ -17,6 +17,21 @@ class Square():
             ValueError: size must be >= 0
         """
         self.__size = size
+        self.__position = position
+        error = 'position must be a tuple of 2 positive integers'
+
+        try:
+            if position[1]:
+                pass
+        except IndexError:
+            raise TypeError(error)
+
+        for pos in self.__position:
+            if type(pos) != int:
+                raise TypeError(error)
+            elif pos < 0:
+                raise TypeError(error)
+
         if type(self.__size) != int:
             raise TypeError('size must be an integer')
         elif self.__size < 0:
@@ -53,3 +68,35 @@ class Square():
             int: the are of the square
         """
         return self.__size**2
+
+    def my_print(self):
+        """printing the square"""
+        if self.__size == 0:
+            print()
+            return
+        print('\n'*self.__position[1], end="")
+        for i in range(self.__size):
+            for k in range(self.__position[0]):
+                print(' ', end="")
+            for j in range(self.__size):
+                print('#', end="")
+            print()
+
+    def __repr__(self):
+        string = ""
+        """printing the square"""
+        if self.__size == 0:
+            return string
+        print('\n'*self.__position[1], end="")
+        for i in range(self.__size):
+            for k in range(self.__position[0]):
+                string += ' '
+            for j in range(self.__size):
+                string += '#'
+            if i + 1 != self.__size:
+                string += '\n'
+        return string
+
+    @property
+    def position(self):
+        return self.__position
