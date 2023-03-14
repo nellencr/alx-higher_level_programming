@@ -1,26 +1,10 @@
 #!/usr/bin/node
-// A script that computes the number of tasks completed by user id.
-
-const args = process.argv;
-let reqURL = args[2];
-let request = require('request');
-request(reqURL, function (error, response, body) {
-  if (error) {
-    console.log('error:', error);
-  } else {
-    let todos = JSON.parse(body);
-    let dash = {};
-    for (let i = 0; i < todos.length; i++) {
-      let status = (todos[i]['completed']);
-      let key = todos[i]['userId'].toString();
-      if (status) {
-        if (dash[key]) {
-          dash[key]++;
-        } else {
-          dash[key] = 1;
-        }
-      }
+module.exports = class Square extends require('./5-square.js') {
+  charPrint (c) {
+    if (c === undefined) {
+      this.print();
+    } else {
+      for (let i = 0; i < this.height; i++) console.log(c.repeat(this.width));
     }
-    console.log(dash);
   }
-});
+};
