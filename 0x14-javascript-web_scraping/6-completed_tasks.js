@@ -1,27 +1,24 @@
-#!/usr/bin/node
-// A script that computes the number of tasks completed by user id.
 
-const arguments = process.argv;
-let url = arguments[2];
-let request = require('request');
-request(url, function (error, response, body) {
-	if (error) {
-	console.log('error:', error);
-	} else {
-		let todos = JSON.parse(body);
-		let dashboard = {};
-		for (let i = 0; i < todos.length; i++) {
-			let isCompleted = (todos[i]['completed']);
-			let userId = todos[i]['userId'].toString();
-			if (isCompleted) {
-				if (dashboard[userId]) {
-				dashboard[userId]++;
-				} else {
-					dashboard[userId] = 1;
-				}
-			}
-		}
-	
-	console.log(dashboard);
-	}
+#!/usr/bin/node
+
+const request = require('request');
+const url = process.argv[2];
+
+request.get(url, { json: true }, (error, response, body) => {
+  if (error) {
+    console.log(error);
+    return;
+  }
+
+  const tasksCompleted = {};
+  body.forEach((todo) => {
+    if (todo.completed) {
+      if (!tasksCompleted[todo.userId]) {
+        tasksCompleted[todo.userId] = 1;
+      } else {
+        tasksCompleted[todo.userId] += 1;
+      }
+    }
+  });
+  console.log(tasksCompleted);
 });
